@@ -16,6 +16,7 @@ export const MongoHelper = {
   },
 
   map (collection: any): any {
-    return { id: collection.result.insertedId.toString(), ...collection.accountData }
+    const { _id, ...account } = collection
+    return { id: _id, ...account }
   }
 }
