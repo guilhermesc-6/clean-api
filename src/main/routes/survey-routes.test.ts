@@ -2,7 +2,7 @@ import request from 'supertest'
 
 import app from '../config/app'
 import { MongoHelper } from '../../infra/db/mongodb/helpers/mongo-helper'
-import { type Collection } from 'mongodb'
+import type { Collection } from 'mongodb'
 
 let surveyCollection: Collection
 
@@ -21,7 +21,7 @@ describe('Login Routes', () => {
   })
 
   describe('POST /surveys', () => {
-    it('Should return 204 on add survey success', async () => {
+    it('Should return 403 on add survey without access token', async () => {
       await request(app)
         .post('/api/surveys')
         .send({
@@ -33,9 +33,9 @@ describe('Login Routes', () => {
             },
             {
               answer: 'Answer 2'
-            }]
+            } ]
         })
-        .expect(204)
+        .expect(403)
     })
   })
 })
