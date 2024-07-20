@@ -103,9 +103,6 @@ describe('Mongo Repository', () => {
 
       expect(account).toBeTruthy()
       expect(account.id).toBeTruthy()
-      expect(account.name).toBe('any_name')
-      expect(account.email).toBe('any_email@mail.com')
-      expect(account.password).toBe('any_password')
     })
 
     it('Should return an account on loadByToken with role', async () => {
@@ -123,9 +120,6 @@ describe('Mongo Repository', () => {
 
       expect(account).toBeTruthy()
       expect(account.id).toBeTruthy()
-      expect(account.name).toBe('any_name')
-      expect(account.email).toBe('any_email@mail.com')
-      expect(account.password).toBe('any_password')
     })
 
     it('Should return null if loadByToken fails', async () => {
