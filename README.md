@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/guilhermesc-6/clean-api/badge.svg)](https://coveralls.io/github/guilhermesc-6/clean-api)
+[![codecov](https://codecov.io/github/guilhermesc-6/clean-api/branch/main/graph/badge.svg?token=GMGG2JHOPJ)](https://codecov.io/github/guilhermesc-6/clean-api)
 
 # **Clean Node API**
 
