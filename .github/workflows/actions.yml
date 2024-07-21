@@ -1,10 +1,10 @@
 on: ["push", "pull_request"]
-
+github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
 name: Test Coveralls
 
-jobs: 
+jobs:
 
-  build: 
+  build:
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -14,11 +14,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 18.x
-          
+
       - name: npm install, npm run test:coveralls
         run: |
           npm install
           npm run test:coveralls
 
       - name: Coveralls
-        uses: coverallsapp/github-action@v2.3.0
+        uses: coverallsapp/github-action@v2
