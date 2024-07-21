@@ -1,4 +1,4 @@
-on: ["push", "pull_request"]
+on: [push, pull_request]
 
 name: Test Coveralls
 
@@ -8,7 +8,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - name: Use Node.js 18.x
         uses: actions/setup-node@v4
@@ -20,7 +20,7 @@ jobs:
           npm install
           npm run test:coveralls
 
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
         with:
-          github-token: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }}
