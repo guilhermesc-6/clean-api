@@ -1,3 +1,4 @@
+![build](https://github.com/guilhermesc-6/clean-api/actions/workflows/actions.yml/badge.svg?branch=main&event=push)
 [![codecov](https://codecov.io/github/guilhermesc-6/clean-api/branch/main/graph/badge.svg?token=GMGG2JHOPJ)](https://codecov.io/github/guilhermesc-6/clean-api)
 
 # **Clean Node API**
