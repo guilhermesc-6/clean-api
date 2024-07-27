@@ -11,7 +11,7 @@ let accountCollection: Collection
 
 describe('Login Routes', () => {
   beforeAll(async () => {
-    await MongoHelper.connect(process.env.MONGO_URL)
+    await MongoHelper.connect(process.env.MONGO_URL || '')
   })
 
   beforeEach(async () => {
@@ -74,6 +74,14 @@ describe('Login Routes', () => {
             }]
         })
         .expect(204)
+    })
+  })
+
+  describe('GET /surveys', () => {
+    it('Should return 403 on laod surveys without accessToken', async () => {
+      await request(app)
+        .get('/api/surveys')
+        .expect(403)
     })
   })
 })
