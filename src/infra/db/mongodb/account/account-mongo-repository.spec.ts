@@ -1,6 +1,6 @@
-import { type Collection } from 'mongodb'
-import { MongoHelper } from '../helpers/mongo-helper'
+import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
 import { AccountMongoRepository } from './account-mongo-repository'
+import type { Collection } from 'mongodb'
 
 let accountCollection: Collection
 
@@ -129,7 +129,7 @@ describe('Mongo Repository', () => {
         name: 'any_name',
         email: 'any_email@mail.com',
         password: 'any_password',
-        accessToken: 'any_token',
+        accessToken: 'any_token'
       })
 
       const account = await sut.loadByToken('any_token', 'admin')

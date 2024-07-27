@@ -1,10 +1,10 @@
-import {
-  type AccountModel,
-  type AuthenticationModel,
-  type LoadAccountByEmailRepository,
-  type HashComparer,
-  type Encrypter,
-  type UpdateAccessTokenRepository
+import type {
+  AccountModel,
+  AuthenticationModel,
+  LoadAccountByEmailRepository,
+  HashComparer,
+  Encrypter,
+  UpdateAccessTokenRepository
 } from './db-authentication-protocols'
 import { DbAuthentication } from './db-authentication'
 

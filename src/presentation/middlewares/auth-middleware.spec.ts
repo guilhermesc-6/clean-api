@@ -1,7 +1,7 @@
 import type { LoadAccountByToken, HttpRequest, AccountModel } from './auth-middleware-protocols'
 import { AuthMiddleware } from './auth-middleware'
-import { AccessDeniedError } from '../errors'
-import { forbidden, ok, serverError } from '../helpers/http/http-helper'
+import { AccessDeniedError } from '@/presentation/errors'
+import { forbidden, ok, serverError } from '@/presentation/helpers/http/http-helper'
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
@@ -79,7 +79,7 @@ describe('Auth Middleware', () => {
   })
 
   it('Should return 500 if LoadAccountByToken throws', async () => {
-    const { sut ,loadAccountByTokenStub} = makeSut()
+    const { sut, loadAccountByTokenStub } = makeSut()
     jest.spyOn(loadAccountByTokenStub, 'load').mockReturnValueOnce(
       new Promise((resolve, reject) => {
         reject(new Error())

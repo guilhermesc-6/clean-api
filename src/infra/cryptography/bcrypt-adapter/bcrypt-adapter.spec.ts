@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import bcrypt from 'bcrypt'
+
 import { BcryptAdapter } from './bcrypt-adapter'
+import bcrypt from 'bcrypt'
 
 jest.mock('bcrypt', () => ({
   hash: async (): Promise<string> => {
@@ -34,7 +35,7 @@ describe('Bcrypt Adapter', () => {
 
     it('Should throw if hash throw', async () => {
       const sut = makeSut()
-      jest.spyOn(bcrypt, 'hash').mockImplementationOnce(async () => { await new Promise((resolve, reject) => { reject(new Error()) }) })
+      jest.spyOn(bcrypt, 'hash').mockImplementationOnce(async () => { await new Promise((_resolve, reject) => { reject(new Error()) }) })
       const promise = sut.hash('any_value')
       await expect(promise).rejects.toThrow()
     })

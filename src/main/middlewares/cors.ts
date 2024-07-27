@@ -1,4 +1,4 @@
-import { type NextFunction, type Request, type Response } from 'express'
+import type { NextFunction, Request, Response } from 'express'
 
 export const cors = (req: Request, res: Response, next: NextFunction): void => {
   res.set('Access-Control-Allow-Origin', '*')
