@@ -1,9 +1,8 @@
 on: [push, pull_request]
 
-name: Test Coveralls
+name: Test Coverage
 
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -15,7 +14,7 @@ jobs:
         with:
           node-version: 18.x
 
-      - name: npm install, npm run test:coveralls
+      - name: npm install, npm run test:ci
         run: |
           npm install
           npm run test:ci
