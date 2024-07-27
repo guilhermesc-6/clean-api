@@ -49,7 +49,7 @@ const makeSut = (): SutTypes => {
 }
 
 describe('DbLoadSurveys', () => {
-  it('Should call LoadSurveys', async () => {
+  it('Should call LoadSurveysRepository', async () => {
     const { sut, loadSurveysRepositoryStub } = makeSut()
     const loadAllSpy = jest.spyOn(loadSurveysRepositoryStub, 'loadAll')
     await sut.load()
@@ -60,5 +60,12 @@ describe('DbLoadSurveys', () => {
     const { sut } = makeSut()
     const surveys = await sut.load()
     expect(surveys).toEqual(makeFakeSurveys())
+  })
+
+  it('Should throw if LoadSurveysRepository throws', async () => {
+    const { sut, loadSurveysRepositoryStub } = makeSut()
+    jest.spyOn(loadSurveysRepositoryStub, 'loadAll').mockImplementationOnce((): never => { throw new Error() })
+    const promise = sut.load()
+    await expect(promise).rejects.toThrow()
   })
 })
