@@ -1,6 +1,4 @@
-import type { SurveyModel } from '@/domain/models/survey'
-import type { LoadSurveys } from '@/domain/usecases/load-surveys'
-import type { LoadSurveysRepository } from '@/data/protocols/db/survey/load-surveys-repository'
+import type { LoadSurveys, LoadSurveysRepository, SurveyModel } from './db-load-survey-protocols'
 
 export class DbLoadSurveys implements LoadSurveys {
   constructor (
