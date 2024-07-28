@@ -1,6 +1,6 @@
+import { DbLoadSurveys } from './db-load-surveys'
 import type { SurveyModel } from '@/domain/models/survey'
 import type { LoadSurveysRepository } from '@/data/protocols/db/survey/load-surveys-repository'
-import { DbLoadSurveys } from './db-load-surveys'
 import MockDate from 'mockdate'
 
 const makeFakeSurveys = (): SurveyModel[] => {
@@ -35,7 +35,7 @@ const makeLoadSurveysRepository = (): LoadSurveysRepository => {
   return new LoadSurveysRepositoryStub()
 }
 
-interface SutTypes {
+type SutTypes = {
   sut: DbLoadSurveys
   loadSurveysRepositoryStub: LoadSurveysRepository
 }

@@ -1,8 +1,8 @@
+import { LogControllerDecorator } from './log-controller-decorator'
 import type { AccountModel } from '@/domain/models/account'
 import type { LogErrorRepository } from '@/data/protocols/db/log/log-error-repository'
 import { ok, serverError } from '@/presentation/helpers/http/http-helper'
 import type { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
-import { LogControllerDecorator } from './log-controller-decorator'
 
 const makeController = (): Controller => {
   class ControllerStub implements Controller {
@@ -42,7 +42,7 @@ const makeFakeServerError = (): HttpResponse => {
   fakeError.stack = 'any_stack'
   return serverError(fakeError)
 }
-interface SutTypes {
+type SutTypes = {
   sut: LogControllerDecorator
   controllerStub: Controller
   logErrorRepositoryStub: LogErrorRepository
