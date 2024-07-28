@@ -54,4 +54,10 @@ describe('DbLoadSurveys', () => {
     await sut.loadbyId('any_id')
     expect(loadByIdSpy).toBeCalledWith('any_id')
   })
+
+  it('Should return a Survey on success', async () => {
+    const { sut } = makeSut()
+    const survey = await sut.loadbyId('any_id')
+    expect(survey).toEqual(makeFakeSurvey())
+  })
 })
