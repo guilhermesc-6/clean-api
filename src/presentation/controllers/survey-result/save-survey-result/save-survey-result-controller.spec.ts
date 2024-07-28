@@ -1,5 +1,7 @@
 import { SaveSurveyResultController } from './save-survey-result-controller'
 import type { HttpRequest, LoadSurveyById, SurveyModel } from './save-survey-result-controller-protocols'
+import { forbidden } from '@/presentation/helpers/http/http-helper'
+import { InvalidParamError } from '@/presentation/errors'
 
 const makeFakeRequest = (): HttpRequest => ({
   params: {
@@ -48,5 +50,12 @@ describe('SaveSurveyResult Controller', () => {
     const loadByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadbyId')
     await sut.handle(makeFakeRequest())
     expect(loadByIdSpy).toBeCalledWith('any_survey_id')
+  })
+
+  it('Should return 403 if LoadSurveyById returns null', async () => {
+    const { sut, loadSurveyByIdStub } = makeSut()
+    jest.spyOn(loadSurveyByIdStub, 'loadbyId').mockReturnValueOnce(new Promise(resolve => { resolve(null) }))
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(forbidden(new InvalidParamError('surveyId')))
   })
 })
