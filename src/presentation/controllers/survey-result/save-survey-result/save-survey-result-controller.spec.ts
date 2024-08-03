@@ -1,4 +1,4 @@
-import type { HttpRequest, LoadSurveyById, SaveSurveyResult, SaveSurveyResultModel, SurveyModel, SurveyResultModel } from './save-survey-result-controller-protocols'
+import type { HttpRequest, LoadSurveyById, SaveSurveyResult, SaveSurveyResultParams, SurveyModel, SurveyResultModel } from './save-survey-result-controller-protocols'
 import { SaveSurveyResultController } from './save-survey-result-controller'
 import { forbidden, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { InvalidParamError } from '@/presentation/errors'
@@ -45,7 +45,7 @@ const makeLoadSurveyById = (): LoadSurveyById => {
 }
 const makeSaveSurveyResult = (): SaveSurveyResult => {
   class SaveSurveyResultStub implements SaveSurveyResult {
-    async save (data: SaveSurveyResultModel): Promise<SurveyResultModel> {
+    async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
       return await new Promise(resolve => { resolve(makeFakeSurveyResult()) })
     }
   }
