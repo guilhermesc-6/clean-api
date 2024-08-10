@@ -8,12 +8,14 @@ export const surveyResultPath = {
     parameters: [{
       in: 'path',
       name: 'surveyId',
+      description: 'ID da enquete a ser respondida',
       required: true,
       schema: {
         type: 'string'
       }
     }],
     requestBody: {
+      required: true,
       content: {
         'application/json': {
           schema: {

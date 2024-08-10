@@ -19,8 +19,14 @@ export default {
     }
   ],
   tags: [
-    { name: 'Login' },
-    { name: 'Enquete' }
+    {
+      name: 'Login',
+      description: 'APIs relacionadas a Login'
+    },
+    {
+      name: 'Enquete',
+      description: 'APIs relacionadas a Enquete'
+    }
   ],
   paths,
   schemas,
