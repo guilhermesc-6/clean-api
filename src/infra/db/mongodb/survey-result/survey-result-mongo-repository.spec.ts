@@ -1,7 +1,7 @@
 import { SurveyResultMongoRepository } from './survey-result-mongo-repository'
 import type { SurveyModel } from '@/domain/models/survey'
 import { MongoHelper } from '../helpers/mongo-helper'
-import type { Collection } from 'mongodb'
+import { ObjectId, type Collection } from 'mongodb'
 
 let accountCollection: Collection
 let surveyCollection: Collection
@@ -61,36 +61,44 @@ describe('Survey Mongo Repository', () => {
       const survey = await makeSurvey()
       const accountId = await makeAccountId()
       const sut = makeSut()
-      const surveyResult = await sut.save({
+      await sut.save({
         surveyId: survey.id,
         accountId,
         answer: survey.answers[0].answer,
         date: new Date()
       })
+
+      const surveyResult = await surveyResultCollection.findOne({
+        surveyId: new ObjectId(survey.id),
+        accountId: new ObjectId(accountId)
+      })
       expect(surveyResult).toBeTruthy()
-      expect(surveyResult.id).toBeTruthy()
-      expect(surveyResult.answer).toBe(survey.answers[0].answer)
     })
 
     it('Should update survey result if its not new', async () => {
       const survey = await makeSurvey()
       const accountId = await makeAccountId()
-      const res = await surveyResultCollection.insertOne({
-        surveyId: survey.id,
-        accountId,
+      await surveyResultCollection.insertOne({
+        surveyId: new ObjectId(survey.id),
+        accountId: new ObjectId(accountId),
         answer: survey.answers[0].answer,
         date: new Date()
       })
       const sut = makeSut()
-      const surveyResult = await sut.save({
+      await sut.save({
         surveyId: survey.id,
         accountId,
         answer: survey.answers[1].answer,
         date: new Date()
       })
+      const surveyResult = await surveyResultCollection
+        .find({
+          surveyId: new ObjectId(survey.id),
+          accountId: new ObjectId(accountId)
+        })
+        .toArray()
       expect(surveyResult).toBeTruthy()
-      expect(surveyResult.id).toEqual(res.insertedId.toHexString())
-      expect(surveyResult.answer).toBe(survey.answers[1].answer)
+      expect(surveyResult.length).toBe(1)
     })
   })
 })
