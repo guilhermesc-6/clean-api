@@ -1,9 +1,10 @@
 import type { SurveyResultModel } from '@/domain/models/survey-result'
 import type { SaveSurveyResult, SaveSurveyResultParams } from '@/domain/usecases/survey-result/save-survey-result'
+import type { LoadSurveyResultRepository } from '@/data/protocols/db/survey-result/load-survey-result-repository'
 import { MongoHelper, QueryBuilder } from '../helpers'
 import { ObjectId } from 'mongodb'
 
-export class SurveyResultMongoRepository implements SaveSurveyResult {
+export class SurveyResultMongoRepository implements SaveSurveyResult, LoadSurveyResultRepository {
   async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
     await surveyResultCollection.findOneAndUpdate({
@@ -18,11 +19,11 @@ export class SurveyResultMongoRepository implements SaveSurveyResult {
       upsert: true
     })
 
-    const surveyResult = await this.loadBySurveyById(data.surveyId)
+    const surveyResult = await this.loadBySurveyId(data.surveyId)
     return surveyResult
   }
 
-  private async loadBySurveyById (surveyId: string): Promise<SurveyResultModel> {
+  async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
     const query = new QueryBuilder()
       .match({
@@ -159,14 +160,18 @@ export class SurveyResultMongoRepository implements SaveSurveyResult {
         }
       }).project({
         _id: 0,
-        surveyId: '$_id.surveyId',
+        surveyId: {
+          $toString: '$_id.surveyId'
+        },
         question: '$_id.question',
         date: '$_id.date',
-        answer: '$answers'
+        answers: '$answers'
       })
       .build()
 
-    const surveyResult = await surveyResultCollection.aggregate(query).toArray() as SurveyResultModel[]
+    const surveyResult = await surveyResultCollection.aggregate<SurveyResultModel>(query).toArray()
+    console.log(surveyResult[0])
+
     return surveyResult?.length ? surveyResult[0] : null
   }
 }
