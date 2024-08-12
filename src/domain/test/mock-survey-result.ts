@@ -1,30 +1,31 @@
 import type { SurveyResultModel } from '@/domain/models/survey-result'
 import type { SaveSurveyResultParams } from '@/domain/usecases/survey-result/save-survey-result'
+import { faker } from '@faker-js/faker'
 
 export const mockSaveSurveyResultParams = (): SaveSurveyResultParams => ({
-  accountId: 'any_account_id',
-  surveyId: 'any_survey_id',
-  answer: 'any_answer',
-  date: new Date()
+  accountId: faker.string.uuid(),
+  surveyId: faker.string.uuid(),
+  answer: faker.word.words(),
+  date: faker.date.recent()
 })
 
 export const mockSurveyResultModel = (): SurveyResultModel => ({
-  surveyId: 'any_id',
-  question: 'any_question',
+  surveyId: faker.string.uuid(),
+  question: faker.word.words(3),
   answers: [
     {
-      answer: 'any_answer',
-      count: 0,
-      percent: 0
+      answer: faker.word.words(),
+      count: faker.number.int({ min: 0, max: 1000 }),
+      percent: faker.number.int({ min: 0, max: 100 })
 
     },
     {
-      answer: 'other_answer',
-      image: 'any_image',
-      count: 0,
-      percent: 0
+      answer: faker.word.words(),
+      image: faker.image.url(),
+      count: faker.number.int({ min: 0, max: 1000 }),
+      percent: faker.number.int({ min: 0, max: 100 })
 
     }
   ],
-  date: new Date()
+  date: faker.date.recent()
 })
