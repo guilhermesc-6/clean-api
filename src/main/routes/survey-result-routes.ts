@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { makeSaveSurveyResultController } from '@/main/factories/controllers/survey-result/save-survey-result/save-survey-result-controller-factory'
-import { makeLoadSurveyResultController } from '@/main/factories/controllers/survey-result/load-survey-result/load-survey-result-controller-factory'
-import { adaptRoute } from '@/main/adapters/express-route-adapter'
+import { makeSaveSurveyResultController, makeLoadSurveyResultController } from '@/main/factories'
+import { adaptRoute } from '@/main/adapters'
 import { auth } from '@/main/middlewares'
 import type { Router } from 'express'
 
