@@ -1,12 +1,11 @@
 import type { AddSurveyRepository, LoadSurveyByIdRepository, LoadSurveysRepository } from '@/data/protocols'
-import type { AddSurveyParams } from '@/domain/usecases'
 import type { SurveyModel } from '@/domain/models'
 import { mockSurveyModel, mockSurveyModels } from '@/tests/domain/mocks'
 
 export class AddSurveyRepositorySpy implements AddSurveyRepository {
-  addSurveyParams: AddSurveyParams
+  addSurveyParams: AddSurveyRepository.Params
 
-  async add (data: AddSurveyParams): Promise<void> {
+  async add (data: AddSurveyRepository.Params): Promise<void> {
     this.addSurveyParams = data
     await Promise.resolve()
   }
