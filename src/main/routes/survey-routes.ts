@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import { adaptRoute } from '@/main/adapters'
 import { makeAddSurveyController, makeLoadSurveysController } from '@/main/factories'
 import { adminAuth, auth } from '@/main/middlewares'
