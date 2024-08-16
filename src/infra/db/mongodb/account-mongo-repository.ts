@@ -1,18 +1,23 @@
 import { MongoHelper } from './index'
 import type { AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository } from '@/data/protocols'
-import type { AccountModel } from '@/domain/models'
 import { ObjectId } from 'mongodb'
 
 export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository {
   async add (accountData: AddAccountRepository.Params): Promise<AddAccountRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts')
-    await accountCollection.insertOne(accountData)
-    return MongoHelper.map(accountData)
+    const result = await accountCollection.insertOne(accountData)
+    return result.acknowledged
   }
 
-  async loadByEmail (email: string): Promise<AccountModel> {
+  async loadByEmail (email: string): Promise<LoadAccountByEmailRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts')
-    const account = await accountCollection.findOne({ email })
+    const account = await accountCollection.findOne({ email }, {
+      projection: {
+        _id: 1,
+        name: 1,
+        password: 1
+      }
+    })
     return account && MongoHelper.map(account)
   }
 
