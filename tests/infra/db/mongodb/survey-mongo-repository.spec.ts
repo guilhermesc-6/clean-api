@@ -1,6 +1,7 @@
 import { SurveyMongoRepository, MongoHelper } from '@/infra/db'
 import { mockAddAccountParams, mockAddSurveyParams } from '@/tests/domain/mocks'
 import { ObjectId, type Collection } from 'mongodb'
+import FakeObjectId from 'bson-objectid'
 
 let surveyCollection: Collection
 let accountCollection: Collection
@@ -80,6 +81,21 @@ describe('Survey Mongo Repository', () => {
       const surveys = await sut.loadById(res.insertedId.toHexString())
       expect(surveys).toBeTruthy()
       expect(surveys.id).toBeTruthy()
+    })
+  })
+
+  describe('checkById()', () => {
+    it('Should return true if survey exists', async () => {
+      const res = await surveyCollection.insertOne(mockAddSurveyParams())
+      const sut = makeSut()
+      const exists = await sut.checkById(res.insertedId.toHexString())
+      expect(exists).toBe(true)
+    })
+
+    it('Should return false if survey exists', async () => {
+      const sut = makeSut()
+      const exists = await sut.checkById(FakeObjectId.createFromTime(1).toHexString())
+      expect(exists).toBe(false)
     })
   })
 })
