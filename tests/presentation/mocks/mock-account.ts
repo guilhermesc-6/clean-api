@@ -3,25 +3,25 @@ import type { Authentication } from '@/domain/usecases/authentication'
 import { faker, simpleFaker } from '@faker-js/faker'
 
 export class AddAccountSpy implements AddAccount {
-  addAccountParams: AddAccount.Params
+  params: AddAccount.Params
   result = true
 
   async add (account: AddAccount.Params): Promise<AddAccount.Result> {
-    this.addAccountParams = account
+    this.params = account
     return this.result
   }
 }
 
 export class AuthenticationSpy implements Authentication {
-  authenticationParams: Authentication.Params
-  authenticationModel = {
+  params: Authentication.Params
+  result = {
     accessToken: faker.string.uuid(),
     name: faker.person.firstName()
   }
 
-  async auth (authenticationParams: Authentication.Params): Promise<Authentication.Result> {
-    this.authenticationParams = authenticationParams
-    return await Promise.resolve(this.authenticationModel)
+  async auth (params: Authentication.Params): Promise<Authentication.Result> {
+    this.params = params
+    return await Promise.resolve(this.result)
   }
 }
 

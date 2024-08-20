@@ -4,21 +4,21 @@ import { mockSurveyModels } from '@/tests/domain/mocks'
 import { faker } from '@faker-js/faker'
 
 export class AddSurveySpy implements AddSurvey {
-  addSurveyParams: AddSurvey.Params
+  params: AddSurvey.Params
 
   async add (data: AddSurvey.Params): Promise<void> {
-    this.addSurveyParams = data
+    this.params = data
     await Promise.resolve()
   }
 }
 
 export class LoadSurveysSpy implements LoadSurveys {
-  surveyModels = mockSurveyModels()
+  result = mockSurveyModels()
   accountId: string
 
   async load (accountId: string): Promise<SurveyModel[]> {
     this.accountId = accountId
-    return await Promise.resolve(this.surveyModels)
+    return await Promise.resolve(this.result)
   }
 }
 

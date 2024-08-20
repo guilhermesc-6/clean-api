@@ -57,7 +57,7 @@ describe('AddSurvey Controller', () => {
     const { sut, addSurveySpy } = makeSut()
     const request = mockRequest()
     await sut.handle(request)
-    expect(addSurveySpy.addSurveyParams).toEqual({ ...request, date: new Date() })
+    expect(addSurveySpy.params).toEqual({ ...request, date: new Date() })
   })
 
   it('Should return 500 if AddSurvey throws', async () => {

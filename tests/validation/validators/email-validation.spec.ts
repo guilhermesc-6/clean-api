@@ -23,7 +23,7 @@ const makeSut = (): SutTypes => {
 describe('SignUp Controller', () => {
   it('Should return an error if EmailValidator return false', () => {
     const { sut, emailValidatorSpy } = makeSut()
-    emailValidatorSpy.isEmailValid = false
+    emailValidatorSpy.result = false
     const email = faker.internet.email()
     const error = sut.validate({ [field]: email })
     expect(error).toEqual(new InvalidParamError(field))
