@@ -1,13 +1,12 @@
-import type { LoadSurveyByIdRepository } from '../protocols'
+import type { LoadAnswersBySurveyRepository } from '../protocols'
 import type { LoadAnswersBySurvey } from '@/domain/usecases'
 
 export class DbLoadAnswersBySurvey implements LoadAnswersBySurvey {
   constructor (
-    private readonly loadSurveyByIdRepository: LoadSurveyByIdRepository
+    private readonly loadAnswersBySurveyRepository: LoadAnswersBySurveyRepository
   ) { }
 
-  async loadAnswers (id: string): Promise<LoadAnswersBySurvey.Result> {
-    const survey = await this.loadSurveyByIdRepository.loadById(id)
-    return survey?.answers.map(a => a.answer) || []
+  async loadAnswers (id: string): Promise<LoadAnswersBySurveyRepository.Result> {
+    return await this.loadAnswersBySurveyRepository.loadAnswers(id)
   }
 }
