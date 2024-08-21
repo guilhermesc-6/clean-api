@@ -3,7 +3,7 @@ import { makeDbAuthentication, makeLogControllerDecorator } from '@/main/factori
 import { LoginController } from '@/presentation/controllers'
 import type { Controller } from '@/presentation/protocols'
 
-export const makeLogInController = (): Controller => {
+export const makeLoginController = (): Controller => {
   const controller = new LoginController(makeDbAuthentication(), makeLoginValidation())
   return makeLogControllerDecorator(controller)
 }
