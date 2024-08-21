@@ -97,7 +97,6 @@ describe('SurveyResult GraphQL', () => {
     })
 
     it('Should AccessDeniedError if no token is provided', async () => {
-      const now = new Date()
       const surveyRes = await surveyCollection.insertOne({
         question: 'Question',
         answers: [{
@@ -106,7 +105,7 @@ describe('SurveyResult GraphQL', () => {
         }, {
           answer: 'Answer 2'
         }],
-        date: now
+        date: new Date()
       })
 
       const query = `query {
@@ -180,7 +179,6 @@ describe('SurveyResult GraphQL', () => {
     })
 
     it('Should return AccessDeniedError if no token is provided', async () => {
-      const now = new Date()
       const surveyRes = await surveyCollection.insertOne({
         question: 'Question',
         answers: [{
@@ -188,7 +186,7 @@ describe('SurveyResult GraphQL', () => {
         }, {
           answer: 'Answer 2'
         }],
-        date: now
+        date: new Date()
       })
 
       const query = `mutation {

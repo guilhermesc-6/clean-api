@@ -96,7 +96,6 @@ describe('Survey GraphQL', () => {
     })
 
     it('Should return AccessDeniedError if no token is provided', async () => {
-      const now = new Date()
       await surveyCollection.insertOne({
         question: 'Question',
         answers: [{
@@ -105,7 +104,7 @@ describe('Survey GraphQL', () => {
         }, {
           answer: 'Answer 2'
         }],
-        date: now
+        date: new Date()
       })
 
       const res = await request(app)
