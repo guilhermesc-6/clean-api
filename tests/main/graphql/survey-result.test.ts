@@ -130,7 +130,7 @@ describe('SurveyResult GraphQL', () => {
     })
   })
 
-  describe('SurveyResult Mutation', () => {
+  describe('SaveSurveyResult Mutation', () => {
     it('Should return SurveyResult', async () => {
       const accessToken = await mockAccessToken()
       const now = new Date()
